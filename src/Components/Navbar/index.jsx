@@ -1,14 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
+  const navigate=useNavigate()
   return (
     <nav className="bg-slate-900 text-white shadow-md">
       <div className="max-w-6xl mx-auto px-4 flex justify-between items-center h-16">
         
         {/* لوگو */}
-        <div className="text-2xl font-bold text-blue-400">
-          <Link to="/">🎓 OnlineCourses</Link>
+        <div onClick={()=>navigate('/')} className="text-2xl font-bold text-blue-400 flex items-center gap-3 cursor-pointer">
+          <img className="w-10 h-10 bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 rounded transition-all duration-400" src="/images/logo.png" alt="logo" />
+          Online Courses
         </div>
 
         {/* منو */}
