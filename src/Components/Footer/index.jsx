@@ -1,8 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaInstagram, FaTelegram, FaLinkedin, FaGithub } from "react-icons/fa";
 
 export default function Footer() {
+  const navigate=useNavigate()
   return (
     <footer className="bg-slate-900 text-gray-200 mt-10">
       {/* بخش بالا */}
@@ -10,7 +11,10 @@ export default function Footer() {
         
         {/* توضیحات سایت */}
         <div>
-          <h3 className="text-xl font-bold mb-2">🎓 Online Courses</h3>
+          <div onClick={()=>navigate('/')} className="text-2xl font-bold text-blue-400 flex items-center gap-3 mb-4 cursor-pointer">
+          <img className="w-10 h-10 bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 rounded transition-all duration-400" src="/images/logo.png" alt="logo" />
+          Online Courses
+        </div>
           <p className="text-gray-400">
             یادگیری آنلاین با بهترین دوره‌های آموزشی فارسی
           </p>
