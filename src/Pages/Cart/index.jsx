@@ -18,6 +18,10 @@ export default function Cart() {
   const calculateFinalPrice = (item) => {
     return item.discount > 0 ? item.price - item.discount : item.price;
   };
+  // محاسبه جمع کل سبد خرید
+  const calculatedTotalPrice = items.reduce((total, item) => {
+    return total + calculateFinalPrice(item);
+  }, 0);
 
   const cartItems = items?.map(item => {
     const finalPrice = calculateFinalPrice(item);
@@ -64,11 +68,6 @@ export default function Cart() {
       </div>
     );
   });
-
-  // محاسبه جمع کل سبد خرید
-  const calculatedTotalPrice = items.reduce((total, item) => {
-    return total + calculateFinalPrice(item);
-  }, 0);
 
   if (items.length === 0) {
     return (
