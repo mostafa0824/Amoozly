@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { FaSearch, FaBars, FaTimes } from "react-icons/fa";
+import { IoMdExit } from "react-icons/io";
 import { MdOutlineShoppingCart } from "react-icons/md";
-import { TbUserDown, TbHeart } from "react-icons/tb";
-import { useSelector } from "react-redux";
+import { TbUserDown, TbHeart, TbLogin } from "react-icons/tb";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { ScaleLoader } from "react-spinners";
+import { logout } from "../../store/slices/AuthSlice";
 
 export default function Navbar() {
+  const { token } = useSelector((state) => state.auth);
   const [inp, setInp] = useState("");
   const [loading, setLoading] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -14,7 +17,7 @@ export default function Navbar() {
   const cartQuantity = useSelector((state) => state.cart.items)?.length;
   const favoritesQuantity = useSelector((state) => state.favorites.items)?.length;
   const navigate = useNavigate();
-
+  const dispatch=useDispatch()
   const handleSubmit = (e) => {
     setLoading(true);
     e.preventDefault();
@@ -122,12 +125,7 @@ export default function Navbar() {
           </button>
 
           {/* دکمه ورود/ثبت‌نام */}
-          <Link
-            to="/auth"
-            className="hidden sm:block bg-blue-500 px-3 py-2 md:px-4 md:py-2 rounded-md hover:bg-blue-600 text-sm"
-          >
-            ورود / ثبت‌نام
-          </Link>
+          
 
           {/* سبد خرید */}
           <div
@@ -139,17 +137,50 @@ export default function Navbar() {
             </span>
             <MdOutlineShoppingCart className="text-2xl md:text-[35px] hover:text-blue-400" />
           </div>
-
-          {/* علاقه‌مندی‌ها */}
-          <div
-            onClick={() => navigate("/favorites")}
-            className="relative cursor-pointer"
-          >
+          {/* login/logout & list */}
+          {token
+          ?(
+            <div className="relative group cursor-pointer hover:">
             <span className="absolute -right-1 -top-1 bg-red-500 w-4 h-4 text-[10px] md:text-[12px] rounded-full flex items-center justify-center">
               {new Intl.NumberFormat("fa-IR").format(favoritesQuantity)}
             </span>
-            <TbHeart className="text-2xl md:text-[35px] hover:text-blue-400" />
+            <TbUserDown className="text-2xl md:text-[35px] hover:text-blue-400" />
+            {/* menu */}
+            <div className="absolute top-12 opacity-0 group-hover:opacity-100 transition-all duration-300 z-10 shadow-lg w-55 h-50 bg-gray-200 rounded-lg flex flex-col justify-evenly pr-2">
+             {/* علاقه مندی */}
+              <div onClick={()=>navigate('/favorites')} className="relative flex items-center gap-1">
+                <TbHeart className="text-red-500 text-[30px]" onClick={() => navigate("/favorites")}/>
+                  <span className="absolute -right-1 -top-1 bg-red-500 w-4 h-4 text-[10px] md:text-[12px] rounded-full flex items-center justify-center">
+                   {new Intl.NumberFormat("fa-IR").format(favoritesQuantity)}
+                  </span>
+                  <p className="text-black">لیست ها</p>
+              </div>
+              {/* line */}
+              <div className="bg-gray-300 w-full h-[1px]"></div>
+              <div onClick={()=>navigate('/cart')} className="flex items-center gap-1">
+                <MdOutlineShoppingCart className="text-black text-[30px] hover:text-red-400"/>
+                <Link
+              className="text-black hover:text-red-400"
+              >
+             دوره های خریداری شده
+            </Link>
+              </div>
+              {/* line */}
+              <div className="bg-gray-300 w-full h-[1px]"></div>
+              <div onClick={()=>dispatch(logout())} className="flex items-center gap-1">
+                <IoMdExit className="text-black text-[30px] hover:text-red-400"/>
+                <Link
+              className="text-black hover:text-red-400"
+              >
+              خروج از حساب کاربری
+            </Link>
+              </div>
+            
+            </div>
           </div>
+          ):(
+            <button className="flex items-center gap-1 w-35 h-10 px-2 bg-blue-500 hover:bg-blue-600 rounded-md"><TbLogin size={20}/><Link to="/login">ورود / ثبت نام</Link></button>
+            )}          
         </div>
       </div>
 
