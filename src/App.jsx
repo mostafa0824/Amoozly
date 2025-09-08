@@ -14,6 +14,10 @@ import Teacher from './Pages/Teachers'
 import NotFound from './Pages/NotFound'
 import CategoryDetails from './Pages/CategoryDetails'
 import Favorites from './Pages/Favorites'
+import CourseTeacher from './Pages/Teachers/CourseTeacher'
+import Bloge from './Public/Bloge'
+import Contact from './Public/Contact'
+import Found from './Pages/Found'
 
 export default function App() {
   return (
@@ -24,14 +28,18 @@ export default function App() {
      <Route path='/login' element={<Login/>}/>
      <Route path='/register' element={<Register/>}/>
      <Route path='/register' element={<Register/>}/>
-     <Route path='/cart/:id' element={<Cart/>}/>
-     <Route path='/favorites/:id' element={<Favorites/>}/>
+     <Route path='/cart' element={<Cart/>}/>
+     <Route path='/favorites' element={<Favorites/>}/>
      <Route path='/categories' element={<Categories/>}/>
      <Route path='/category-details/:id/:name' element={<CategoryDetails/>}/>
      <Route path='/courses' element={<Course/>}/>
      <Route path='/course-details/:id/:name' element={<CourseDetails/>}/>
      <Route path='/profile' element={<Profile/>}/>
      <Route path='/teachers' element={<Teacher/>}/>
+     <Route path='/courseTeacher/:id' element={<CourseTeacher/>}/>
+     <Route path='/bloge' element={<Bloge/>}/>
+     <Route path='/contact' element={<Contact/>}/>
+     <Route path='/found/:name' element={<Found/>}/>
      <Route path='*' element={<NotFound/>}/>
     </Routes>
     <Footer/>
