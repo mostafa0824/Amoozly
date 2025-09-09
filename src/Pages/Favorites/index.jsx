@@ -11,14 +11,21 @@ import {MdOutlineRemoveShoppingCart,
 } from "react-icons/md";
 import { ImBin } from "react-icons/im";
 import { FaTrash } from "react-icons/fa";
+import Login from "../Auth/Login";
 
 export default function Favorites() {
   const cartItems = useSelector((state) => state.cart.items);
   const { items } = useSelector((state) => state.favorites);
+  const {token}=useSelector(state=>state.auth)
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const baseUrl = "http://localhost:5000";
 
+    if(!token){
+    return (
+      <Login/>
+    )
+  }
   // تابع برای نمایش رتبه به صورت ستاره
   const renderRatingStars = (rating) => {
     const stars = [];
@@ -161,7 +168,7 @@ export default function Favorites() {
       <div className="max-w-4xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-2xl font-bold text-gray-900 flex items-center">
-            <MdOutlineFavorite className="ml-2 text-red-500" />
+            <MdOutlineFavorite className="ml-2 text-red-500 text-[38px]" />
             لیست علاقه‌مندی‌ها
           </h1>
           

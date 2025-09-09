@@ -3,13 +3,21 @@ import { ImBin } from 'react-icons/im';
 import { FaShoppingCart, FaTrash, FaArrowLeft, FaCreditCard } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearCart, removeCart } from '../../store/slices/CartSlice';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
+import Login from '../Auth/Login';
 
 export default function Cart() {
   const baseUrl = "http://localhost:5000";
   const { items, totalPrice } = useSelector(state => state.cart);
+  const { token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
+  if(!token){
+    return (
+      <Login/>
+    )
+  }
 
   const formatPrice = (price) => {
     return new Intl.NumberFormat('fa-IR').format(price);
