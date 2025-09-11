@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { FaUser, FaEnvelope, FaLock, FaArrowLeft, FaEyeSlash, FaEye } from "react-icons/fa";
 import { ScaleLoader } from "react-spinners";
@@ -6,7 +7,19 @@ import fetchData from "../../../Utils/fetchData";
 
 export default function Register() {
   const [showPassword,setShowPassword]=useState(false)
+  
+  const validation=Yup.object({
+   username: Yup.string().required("نام کاربری الزامی است"),
+   email:Yup.string().email("ایمیل معتبر نیست").required("ایمیل الزامی است"),
+   password:Yup.string().required("رمز عبور الزامی است")
+   .min(6,"رمز عبور باید حداقل 6 کاراکتر داشته باشد")
+   .matches(/[A-z]/,"رمز عبور باید شامل حداقل یک حرف بزرگ باشد")
+   .matches(/[a-z]/,"رمز عبور باید شامل حداقل یک حرف کوچک باشد")
+   .matches(/[@$!%*?&]/, "رمز عبور باید شامل حداقل یک علامت خاص (@, $, !, %, *) باشد"),
+  })
+
   const handleRegister = async (values, { setSubmitting, setStatus }) => {
+    console.log(values)
     setStatus(null);
     try {
       const res = await fetchData("auth/local/register", {
@@ -31,48 +44,39 @@ export default function Register() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 py-8 px-4">
       <div className="max-w-md w-full">
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
-          {/* هدر */}
+          {/* header */}
           <div className="bg-gradient-to-r from-blue-500 to-indigo-600 p-6 text-center">
             <h1 className="text-2xl font-bold text-white">ایجاد حساب کاربری</h1>
             <p className="text-blue-100 mt-2">لطفا اطلاعات خود را وارد کنید</p>
           </div>
 
-          {/* فرم */}
+          {/* form */}
           <div className="p-6">
             <Formik
               initialValues={{ username: "", email: "", password: "" }}
-              validate={(values) => {
-                const errors = {};
-                if (!values.username) errors.username = "نام کاربری الزامی است";
-                if (!values.email) errors.email = "ایمیل الزامی است";
-                else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email))
-                  errors.email = "ایمیل نامعتبر است";
-                if (!values.password) errors.password = "رمز عبور الزامی است";
-                else if (values.password.length < 6) errors.password = "رمز عبور باید حداقل ۶ کاراکتر باشد";
-                return errors;
-              }}
+              validationSchema={validation}
               onSubmit={handleRegister}
             >
               {({ isSubmitting, status }) => (
                 <Form className="space-y-4">
-                  {/* نام کاربری */}
+                  {/* usename */}
                   <InputField name="username" type="text" placeholder="نام کاربری خود را وارد کنید" icon={<FaUser />} />
 
-                  {/* ایمیل */}
+                  {/* email */}
                   <InputField name="email" type="email" placeholder="ایمیل خود را وارد کنید" icon={<FaEnvelope />} />
 
-                  {/* رمز عبور */}
+                  {/* password */}
                   <div className="relative">
                   <InputField name="password" 
                   type={`${showPassword?'text':'password'}`} 
                   placeholder="رمز عبور خود را وارد کنید" icon={<FaLock />} />
-                  <button className="absolute left-3 top-3 text-gray-400 hover:text-gray-600 cursor-pointer cursor-pointer" 
+                  <button className="absolute left-3 top-3 text-gray-400 hover:text-gray-600 cursor-pointer" 
                   onClick={()=>setShowPassword(!showPassword)}>
                    {showPassword ? <FaEyeSlash /> : <FaEye />}
                   </button>
                   </div>
 
-                  {/* پیام وضعیت */}
+                  {/* message وضعیت */}
                   {status?.error && <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">{status.error}</div>}
                   {status?.success && <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg">{status.success}</div>}
 
@@ -87,7 +91,7 @@ export default function Register() {
               )}
             </Formik>
 
-            {/* لینک برگشت */}
+            {/* back link */}
             <div className="mt-6 text-center">
               <a href="/login" className="inline-flex items-center text-sm text-blue-600 hover:text-blue-800 transition-colors">
                 <FaArrowLeft className="ml-1" />

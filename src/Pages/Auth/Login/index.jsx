@@ -1,22 +1,28 @@
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { ScaleLoader } from "react-spinners";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../../store/slices/AuthSlice";
 import fetchData from "../../../Utils/fetchData";
-import { 
-  FaUser, 
-  FaLock, 
-  FaSignInAlt, 
-  FaUserPlus,
-  FaEye,
-  FaEyeSlash
-} from "react-icons/fa";
+import { FaUser, FaLock, FaSignInAlt, FaUserPlus, FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function Login() {
   const dispatch = useDispatch();
-  const [showPassword, setShowPassword] =useState(false);
+  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+
+  // librery Yup
+  const validationSchema = Yup.object({
+    username: Yup.string().required("نام کاربری الزامی است"),
+    password: Yup.string()
+      .required("رمز عبور الزامی است")
+      .min(6, "رمز عبور باید حداقل ۶ کاراکتر باشد")
+      .matches(/[A-Z]/, "رمز عبور باید شامل حداقل یک حرف بزرگ باشد")
+      .matches(/[a-z]/, "رمز عبور باید شامل حداقل یک حرف کوچک باشد")
+      .matches(/[@$!%*?&]/, "رمز عبور باید شامل حداقل یک علامت خاص (@, $, !, %, *) باشد"),
+  });
 
   const handleLogin = async (values, { setStatus, setSubmitting }) => {
     setStatus(null);
@@ -33,7 +39,7 @@ export default function Login() {
       if (data.jwt) {
         dispatch(login({ token: data.jwt, user: data.user }));
         setStatus({ success: "ورود موفقیت‌آمیز بود!" });
-        setTimeout(() => (window.location.href = "/"), 1000);
+        setTimeout(() => navigate("/"), 1000);
       } else {
         setStatus({ error: data.error?.message || "ورود ناموفق بود" });
       }
@@ -59,12 +65,7 @@ export default function Login() {
         <div className="p-6">
           <Formik
             initialValues={{ username: "", password: "" }}
-            validate={(values) => {
-              const errors = {};
-              if (!values.username) errors.username = "نام کاربری یا ایمیل الزامی است";
-              if (!values.password) errors.password = "رمز عبور الزامی است";
-              return errors;
-            }}
+            validationSchema={validationSchema}
             onSubmit={handleLogin}
           >
             {({ isSubmitting, status }) => (
@@ -139,7 +140,7 @@ export default function Login() {
                 className="text-blue-600 hover:text-blue-800 font-medium flex items-center justify-center"
               >
                 <FaUserPlus className="ml-1" />
-                ثبت‌نام کنید
+                ثبت‌ نام کنید
               </Link>
             </p>
           </div>
