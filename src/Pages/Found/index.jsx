@@ -4,7 +4,7 @@ import fetchData from "../../Utils/fetchData";
 import FoundCart from "./FoundCart";
 import { CgSearchFound } from "react-icons/cg";
 import { ScaleLoader } from "react-spinners";
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaUserTie } from "react-icons/fa";
 
 export default function Found() {
   const { name } = useParams();
@@ -68,11 +68,21 @@ export default function Found() {
             >
               بازگشت
             </button>
+            {/* courses */}
             <button
               onClick={() => navigate("/courses")}
               className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition-all duration-300 cursor-pointer"
             >
+              
               مشاهده همه دوره‌ها
+            </button>
+            {/* teacher */}
+            <button
+              onClick={() => navigate("/teachers")}
+              className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition-all duration-300 flex items-center gap-2 cursor-pointer"
+            >
+              <FaUserTie/>
+              مشاهده همه مدرس ها
             </button>
           </div>
         </div>
