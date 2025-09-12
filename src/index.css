@@ -1,4 +1,69 @@
 @import "tailwindcss";
+
   html, body {
   overflow-x: hidden;
 }
+.menuUser{
+  opacity: 0;
+  visibility: hidden;
+}
+.user:hover .menuUser{
+  opacity: 100;
+  visibility: visible;
+}
+
+/* start media Queries */
+@media screen and (max-width:850px) {
+   .imgLogo{
+    width: 30px;
+    height: 30px;
+   }
+   .textLogo{
+    font-size: 14px;
+   }
+   .textLogoBottom{
+    font-size: 9px;
+   }
+   .linksNav{
+    gap: 10px;
+   }
+   .bannerHome{
+    object-fit: fill;
+   }
+   .bacgroundBanner{
+    background-color: rgba(128, 128, 128, 0.725) ;
+    padding: 14px;
+    border-radius: 14px;
+   }
+  }
+  @media screen and (max-width:600px) {
+    .bacgroundBanner{
+      top: 230px;
+    }
+  }
+  @media screen and (max-width:400px) {
+    .bacgroundBanner{
+      left: auto;
+    }
+    .textBannerTop{
+      font-size: 18px;
+    }
+    .textBannerBottom{
+      font-size: 14px;
+    }
+    .textFilter{
+      font-size: 12px;
+    }
+  }
+   @media screen and (max-width:330px) {
+  .selectBox{
+    width: 130px;
+    font-size: 12px;
+  }
+   }
+      @media screen and (max-width:300px) {
+    .selectBox{
+      width: 90px;
+      padding: 5px;
+    }
+      }
