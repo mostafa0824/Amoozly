@@ -4,10 +4,20 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { FaUser, FaEnvelope, FaLock, FaArrowLeft, FaEyeSlash, FaEye } from "react-icons/fa";
 import { ScaleLoader } from "react-spinners";
 import fetchData from "../../../Utils/fetchData";
+import { useSelector } from "react-redux";
+import Notify from "../../../Utils/Notify";
+import { useNavigate } from "react-router-dom";
+import Home from "../../Home";
 
 export default function Register() {
   const [showPassword,setShowPassword]=useState(false)
-  
+  const {user}=useSelector(state=>state.auth)
+  const navigate=useNavigate()
+
+  if(user){
+    Notify("success","شما حساب کاربری دارید🎉")
+    return <Home/>
+  }
   const validation=Yup.object({
    username: Yup.string().required("نام کاربری الزامی است"),
    email:Yup.string().email("ایمیل معتبر نیست").required("ایمیل الزامی است"),
@@ -79,14 +89,24 @@ export default function Register() {
                   {/* message وضعیت */}
                   {status?.error && <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">{status.error}</div>}
                   {status?.success && <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg">{status.success}</div>}
-
-                  <button
+                  
+                   <button
                     type="submit"
-                    disabled={isSubmitting}
-                    className="w-full cursor-pointer py-3 px-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-medium rounded-lg hover:from-blue-600 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all disabled:opacity-50"
-                  >
+                    disabled={isSubmitting || user}
+                    className="w-full cursor-pointer py-3 px-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-medium rounded-lg hover:from-blue-600 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all disabled:opacity-20">
                     {isSubmitting ? <ScaleLoader color="#fff" height={20} /> : "ثبت‌نام"}
                   </button>
+                  
+                  {user &&(
+                   <button
+                   onClick={()=>navigate("/")}
+                    disabled={!user}
+                    className="w-full cursor-pointer py-3 px-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-medium rounded-lg hover:from-blue-600 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all disabled:opacity-20"
+                  >
+                    {isSubmitting ? <ScaleLoader color="#fff" height={20} /> : "بازگشت"}
+                  </button>
+                  )}
+
                 </Form>
               )}
             </Formik>
