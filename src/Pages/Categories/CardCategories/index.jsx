@@ -15,12 +15,15 @@ export default function CardCategories({ itemsCat }) {
         <h3 className="text-xl font-bold text-gray-800 mb-2">{itemsCat?.name}</h3>
         <span className="text-blue-600 text-sm block mb-2">{itemsCat?.slug}</span>
         <p className="text-gray-600 mb-4 line-clamp-2">{itemsCat?.description}</p>
-        <button 
-          className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md transition-colors duration-300 w-full cursor-pointer"
+        <div className="p-4 pt-0 mt-auto flex items-center justify-center gap-4">
+          <button 
+          className="w-full bg-red-600 hover:bg-red-500 text-white py-2 px-4 rounded-md transition-colors duration-300 flex items-center justify-center gap-2 cursor-pointer"
           onClick={() => navigate(`/category-details/${itemsCat?.documentId}/${itemsCat?.name.replaceAll('/',' ','-')}`)}
         >
           مشاهده دوره ها
         </button>
+        </div>
+        
       </div>
     </div>
   )
