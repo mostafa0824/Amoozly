@@ -18,6 +18,8 @@ import CourseTeacher from './Pages/Teachers/CourseTeacher'
 import Bloge from './Public/Bloge'
 import Contact from './Public/Contact'
 import Found from './Pages/Found'
+import CreateProfile from './Pages/Profile/CreateProfile'
+import { Toaster } from 'react-hot-toast'
 
 export default function App() {
   return (
@@ -35,6 +37,7 @@ export default function App() {
      <Route path='/courses' element={<Course/>}/>
      <Route path='/course-details/:id/:name' element={<CourseDetails/>}/>
      <Route path='/profile' element={<Profile/>}/>
+     <Route path='/create-profile' element={<CreateProfile/>}/>
      <Route path='/teachers' element={<Teacher/>}/>
      <Route path='/courseTeacher/:id' element={<CourseTeacher/>}/>
      <Route path='/bloge' element={<Bloge/>}/>
@@ -43,6 +46,7 @@ export default function App() {
      <Route path='*' element={<NotFound/>}/>
     </Routes>
     <Footer/>
+    <Toaster/>
     </>
   )
 }
