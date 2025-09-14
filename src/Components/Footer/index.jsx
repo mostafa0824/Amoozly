@@ -6,21 +6,24 @@ export default function Footer() {
   const navigate=useNavigate()
   return (
     <footer className="bg-slate-900 text-gray-200 mt-10">
-      {/* بخش بالا */}
+      {/* top footer */}
       <div className="max-w-6xl mx-auto px-4 py-8 grid grid-cols-1 md:grid-cols-3 gap-6">
         
-        {/* توضیحات سایت */}
+        {/* information site */}
         <div>
           <div onClick={()=>navigate('/')} className="text-2xl font-bold text-blue-400 flex items-center gap-3 mb-4 cursor-pointer">
           <img className="w-10 h-10 bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 rounded transition-all duration-400" src="/images/logo.png" alt="logo" />
-          Online Courses
+          <div>
+                <span className="hidden sm:inline hover:text-blue-300"> Amoozly</span> 
+               <p className="text-gray-600 text-[12px]">پل ورود به بازار کار</p>
+         </div>
         </div>
           <p className="text-gray-400">
             یادگیری آنلاین با بهترین دوره‌های آموزشی فارسی
           </p>
         </div>
 
-        {/* لینک‌های مهم */}
+        {/* links */}
         <div>
           <h4 className="text-lg font-semibold mb-3">لینک‌های سریع</h4>
           <ul className="space-y-2">
@@ -31,7 +34,7 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* شبکه‌های اجتماعی */}
+        {/* Social networks*/}
         <div>
           <h4 className="text-lg font-semibold mb-3">ما را دنبال کنید</h4>
           <div className="flex gap-4 text-2xl">
@@ -43,7 +46,7 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* بخش پایین */}
+      {/* bottom footer */}
       <div className="border-t border-slate-700 text-center py-4 text-sm text-gray-400">
         © 2025 تمامی حقوق محفوظ است - Online Courses
       </div>
