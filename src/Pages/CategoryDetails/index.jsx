@@ -2,6 +2,11 @@ import React, { useEffect, useState } from "react";
 import fetchData from "../../Utils/fetchData";
 import { useNavigate, useParams } from "react-router-dom";
 import { ScaleLoader } from "react-spinners";
+import { useDispatch, useSelector } from "react-redux";
+import {addfavorites,removeFavorites,} from "../../store/slices/FavoritesSlice";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
+import {MdOutlineRemoveShoppingCart,MdOutlineShoppingCart,} from "react-icons/md";
+import { addCart, removeCart } from "../../store/slices/CartSlice";
 
 export default function CategoryDetails() {
   const baseUrl = "http://localhost:5000";
@@ -9,22 +14,27 @@ export default function CategoryDetails() {
   const { id } = useParams();
   const [categoryDetails, setCategoryDetails] = useState([]);
   const [courses, setCourses] = useState([]);
-  const [loading,setLoading]=useState(true)
-  // Fetch specific category with its courses
+  const [loading, setLoading] = useState(true);
+  const cartItems = useSelector((state) => state.cart.items);
+  const favoritesItems = useSelector((state) => state.favorites.items);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     (async () => {
-      const response = await fetchData(`categories/${id}?populate[courses][populate]=*`);
+      const response = await fetchData(
+        `categories/${id}?populate[courses][populate]=*`
+      );
       setCategoryDetails(response.data);
       setCourses(response.data?.courses || []);
-      setLoading(false)
+      setLoading(false);
     })();
   }, [id]);
 
   // loading
-    if (loading) {
+  if (loading) {
     return (
       <div className="flex justify-center items-center m-50">
-        <ScaleLoader color="blue" height={100} width={10}/>
+        <ScaleLoader color="blue" height={100} width={10} />
       </div>
     );
   }
@@ -55,76 +65,119 @@ export default function CategoryDetails() {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {courses.map((course) => (
-            <div
-              onClick={() =>
-                navigate(
-                  `/course-details/${
-                    course?.documentId
-                  }/${course?.title.replaceAll("/", " ", "-")}`
-                )
-              }
-              key={course?.id}
-              className="relative group bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer">
-              <p className="absolute top-2 right-4 opacity-0 group-hover:opacity-100 z-10 bg-blue-600 text-white text-xs font-medium px-3 py-1.5 rounded-full shadow-md transition-all duration-300 transform group-hover:translate-y-1">مشاهده جزيیات</p>
-              {/* اگر دوره هم تصویر دارد */}
-              {course.image && (
-                <img
-                  src={`${baseUrl}${course?.image?.url}`}
-                  alt={course?.title}
-                  className="w-full h-48"
-                />
-              )}
-              <div className="p-4">
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                  {course?.title}
-                </h3>
-
-                <div className="flex justify-between items-center mb-3">
-                  <span className="text-lg font-bold text-blue-600">
-                    {new Intl.NumberFormat("fa-IR").format(course?.price)} تومان
-                  </span>
-                  {course.discount > 0 && (
-                    <span className="bg-red-100 text-red-600 px-2 py-1 rounded text-sm">
-                      {course?.discount}% تخفیف
-                    </span>
-                  )}
-                </div>
-
-                <div className="flex justify-between text-sm text-gray-500">
-                  <span>سطح: {getLevelText(course?.level)}</span>
-                  <span>امتیاز: {course?.rating}</span>
-                </div>
-                <p className="text-sm text-gray-600 mt-2">
-                  مدرس: {course?.teacher?.name}
+          {courses.map((course) => {
+            const cartQuantity = cartItems?.find((item) => item?.documentId === course?.documentId
+            )?.cartQuantity;
+            const favoritesQuantity = favoritesItems?.find((fa) => fa?.documentId === course?.documentId
+            )?.favoritesQuantity;
+            return (
+              <div
+                onClick={() =>
+                  navigate(
+                    `/course-details/${
+                      course?.documentId
+                    }/${course?.title.replaceAll("/", " ", "-")}`
+                  )
+                }
+                key={course?.id}
+                className="relative group bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
+              >
+                <p className="absolute top-2 right-4 opacity-0 group-hover:opacity-100 z-10 bg-blue-600 text-white text-xs font-medium px-3 py-1.5 rounded-full shadow-md transition-all duration-300 transform group-hover:translate-y-1">
+                  مشاهده جزيیات
                 </p>
-                <div className="mt-4 mb-5 text-left text-gray-400 text-sm">
-                  تاریخ انتشار: {formatDate(course?.["publish_date"])}
+                
+                {course.image && (
+                  <img
+                    src={`${baseUrl}${course?.image?.url}`}
+                    alt={course?.title}
+                    className="w-full h-48"
+                  />
+                )}
+                <div className="p-4">
+                  <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                    {course?.title}
+                  </h3>
+
+                  <div className="flex justify-between items-center mb-3">
+                    <span className="text-lg font-bold text-blue-600">
+                      {new Intl.NumberFormat("fa-IR").format(course?.price)}{" "}
+                      تومان
+                    </span>
+                    {course.discount > 0 && (
+                      <span className="bg-red-100 text-red-600 px-2 py-1 rounded text-sm">
+                        {course?.discount}% تخفیف
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="flex justify-between text-sm text-gray-500">
+                    <span>سطح: {getLevelText(course?.level)}</span>
+                    <span>امتیاز: {course?.rating}</span>
+                  </div>
+                  <p className="text-sm text-gray-600 mt-2">
+                    مدرس: {course?.teacher?.name}
+                  </p>
+                  <div className="mt-4 mb-5 text-left text-gray-400 text-sm">
+                    تاریخ انتشار: {formatDate(course?.["publish_date"])}
+                  </div>
+                  <div className="p-4 pt-0 mt-auto flex items-center justify-center gap-4">
+                    {cartQuantity ? (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          dispatch(removeCart(course?.documentId));
+                        }}
+                        className="w-full bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md transition-colors duration-300 flex items-center justify-center gap-2 cursor-pointer"
+                      >
+                        <MdOutlineRemoveShoppingCart className="h-5 w-5" />
+                        حذف از سبد خرید
+                      </button>
+                    ) : (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          dispatch(addCart(course));
+                        }}
+                        className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md transition-colors duration-300 flex items-center justify-center gap-2 cursor-pointer"
+                      >
+                        <MdOutlineShoppingCart className="h-5 w-5" />
+                        افزودن به سبد خرید
+                      </button>
+                    )}
+
+                    {favoritesQuantity ? (
+                      <FaHeart
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          dispatch(removeFavorites(course?.documentId));
+                        }}
+                        className="h-7 w-7 text-red-500"
+                      />
+                    ) : (
+                      <FaRegHeart
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          dispatch(addfavorites(course));
+                        }}
+                        className="h-7 w-7 text-red-500"
+                      />
+                    )}
+                  </div>
                 </div>
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    navigate(`/cart/${course?.documentId}`);
-                  }}
-                  className="bg-blue-500 hover:bg-blue-600 text-white w-full py-2 rounded-md transition-colors duration-300 cursor-pointer"
-                >
-                  افزودن به سبد خرید
-                </button>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </div>
   );
 }
 
-// تابع برای نمایش متن سطح دوره
+// function level
 function getLevelText(level) {
   const levels = {
     beginner: "مبتدی",
-    average: "متوسط",
+    intermediate: "متوسط",
     advanced: "پیشرفته",
   };
   return levels[level] || level;
