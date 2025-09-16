@@ -42,10 +42,10 @@ export default function Home() {
       {/* Hero Section */}
       {/* bac */}
       <div className="relative flex items-center justify-center">
-        <img src="/images/bacHome.jpg" alt="" className="w-full h-[400px] object-cover" />
-        <div className="absolute left-10 top-1/3 text-white">
-          <h1 className="text-3xl font-bold mb-5">یادگیری با بهترین دوره‌ها</h1>
-          <p className="mb-5">به دنیای آموزش آنلاین خوش آمدید</p>
+        <img src="/images/bacHome.jpg" alt="" className="bannerHome w-full h-[400px] object-cover" />
+        <div className="bacgroundBanner absolute left-10 top-1/3 text-white">
+          <h1 className="textBannerTop text-3xl font-bold mb-5">یادگیری با بهترین دوره‌ها</h1>
+          <p className="textBannerBottom mb-5">به دنیای آموزش آنلاین خوش آمدید</p>
           <button className="bg-blue-500 px-4 py-2 rounded-md hover:bg-blue-600">
             <Link to={"/categories"}>برای شروع کلیک کن</Link>
           </button>
@@ -120,8 +120,9 @@ export default function Home() {
     از همین لحظه شروع کنید
   </h3>
   <button
+  onClick={()=>navigate("/register")}
   className="bg-white text-indigo-600 hover:text-indigo-700 px-10 py-4 rounded-full font-semibold text-xl shadow-lg transition-all duration-300 transform hover:scale-110 hover:shadow-xl relative z-10 cursor-pointer">
- <Link to={'/register'}> ثبت نام کنید</Link>
+  ثبت نام کنید
   </button>
   
   <p className="mt-6 text-blue-100 text-center max-w-md mx-auto relative z-10">
