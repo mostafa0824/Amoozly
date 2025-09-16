@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "keen-slider/keen-slider.min.css";
 import { useKeenSlider } from "keen-slider/react";
+import {FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 export default function SliderHome({ courses = [] }) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loaded, setLoaded] = useState(false);
-  const baseUrl = "http://localhost:5000"; // آدرس Strapi
+  const baseUrl = "http://localhost:5000";
 
-  // پلاگین AutoPlay
   const Autoplay = (slider) => {
     let timeout;
     let mouseOver = false;
@@ -59,17 +59,15 @@ export default function SliderHome({ courses = [] }) {
         },
       },
     },
-    [Autoplay] // ✅ اضافه کردن پلاگین autoplay
+    [Autoplay]
   );
 
-  // وقتی courses تغییر کرد، اسلایدر رو ریفرش کن
   useEffect(() => {
     if (instanceRef.current) {
       instanceRef.current.update();
     }
   }, [courses]);
 
-  // شمارنده امن برای دات‌ها
   const slidesCount =
     instanceRef.current?.track?.details?.slides?.length ?? courses.length ?? 0;
 
@@ -83,7 +81,7 @@ export default function SliderHome({ courses = [] }) {
       <div ref={sliderRef} className="keen-slider rounded-xl shadow-lg">
         {courses.map((course) => (
           <div
-            key={course?._id}
+            key={course?.id}
             className="keen-slider__slide min-w-[250px] bg-white rounded-xl shadow p-4 flex flex-col items-center"
           >
             <img
@@ -107,7 +105,7 @@ export default function SliderHome({ courses = [] }) {
             className="absolute top-1/2 left-2 -translate-y-1/2 bg-white p-2 rounded-full shadow-md hover:bg-gray-100 cursor-pointer"
             aria-label="قبلی"
           >
-            ◀
+            <FaChevronLeft />
           </button>
           <button
             onClick={(e) => {
@@ -117,7 +115,7 @@ export default function SliderHome({ courses = [] }) {
             className="absolute top-1/2 right-2 -translate-y-1/2 bg-white p-2 rounded-full shadow-md hover:bg-gray-100 cursor-pointer"
             aria-label="بعدی"
           >
-            ▶
+          <FaChevronRight />  
           </button>
         </>
       )}

@@ -13,7 +13,7 @@ export default function CourseDetails() {
   const { id } = useParams();
   const [courseDetail, setCourseDetail] = useState(null);
   
-  // دریافت وضعیت سبد خرید و علاقه‌مندی‌ها
+// Get shopping cart status and favorites
   const cartItems = useSelector((state) => state.cart.items);
   const favoritesItems = useSelector((state) => state.favorites.items);
   const favoriteQuantity=favoritesItems?.find(pr=>pr?.documentId===courseDetail?.documentId)?.favoritesQuantity
@@ -96,7 +96,6 @@ export default function CourseDetails() {
             </div>
           </div>
 
-          {/* محتوای اصلی */}
           <div className="p-8">
             {/* اطلاعات قیمت و دسته‌بندی */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
@@ -137,15 +136,14 @@ export default function CourseDetails() {
               </div>
             </div>
 
-            {/* دکمه‌های اقدام */}
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
               {cartQuantity
               ?(
               <button
                 onClick={() => dispatch(removeCart(courseDetail?.documentId))}
-                className="flex-1 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-3 shadow-lg cursor-pointer"
+                className="flex-1 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-3 shadow-lg cursor-pointer"
               >
-                <MdOutlineRemoveShoppingCart className="h-6 w-6 text-red-500"/>
+                <MdOutlineRemoveShoppingCart className="h-6 w-6 text-white"/>
                 حذف از سبد خرید
               </button>
               ):(
@@ -179,7 +177,7 @@ export default function CourseDetails() {
               
             </div>
 
-            {/* ویدیو */}
+            {/* videos */}
             {courseDetail?.videos?.length > 0 && (
               <div className="mb-8">
                 <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
@@ -204,7 +202,7 @@ export default function CourseDetails() {
               </div>
             )}
 
-            {/* اطلاعات مدرس */}
+            {/* information teacher */}
             <div className="bg-gradient-to-r from-gray-50 to-blue-50 p-6 rounded-2xl mb-8">
               <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
                 <FaUserTie className="text-blue-500"/>
@@ -270,11 +268,11 @@ export default function CourseDetails() {
   );
 }
 
-// تابع برای نمایش متن سطح دوره
+// function level
 function getLevelText(level) {
   const levels = {
     beginner: "مبتدی",
-    average: "متوسط",
+    intermediate: "متوسط",
     advanced: "پیشرفته",
   };
   return levels[level] || level;

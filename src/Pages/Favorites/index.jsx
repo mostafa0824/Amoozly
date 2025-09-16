@@ -26,7 +26,7 @@ export default function Favorites() {
       <Login/>
     )
   }
-  // تابع برای نمایش رتبه به صورت ستاره
+  // function star
   const renderRatingStars = (rating) => {
     const stars = [];
     const fullStars = Math.floor(rating);
