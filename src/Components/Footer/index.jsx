@@ -48,7 +48,7 @@ export default function Footer() {
 
       {/* bottom footer */}
       <div className="border-t border-slate-700 text-center py-4 text-sm text-gray-400">
-        © 2025 تمامی حقوق محفوظ است - Online Courses
+        © 2025 تمامی حقوق محفوظ است - Amoozly
       </div>
     </footer>
   );
