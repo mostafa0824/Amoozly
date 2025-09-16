@@ -3,10 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ScaleLoader } from "react-spinners";
 import fetchData from "../../../Utils/fetchData";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  MdOutlineRemoveShoppingCart,
-  MdOutlineShoppingCart,
-} from "react-icons/md";
+import {MdOutlineRemoveShoppingCart,MdOutlineShoppingCart,} from "react-icons/md";
 import { addCart, removeCart } from "../../../store/slices/CartSlice";
 import { FaHeart, FaRegHeart, FaUserTie } from "react-icons/fa";
 import { addfavorites, removeFavorites } from "../../../store/slices/FavoritesSlice";
@@ -194,7 +191,7 @@ export default function CourseTeacher() {
   );
 }
 
-// تابع برای نمایش متن سطح دوره
+// function level
 function getLevelText(level) {
   const levels = {
     beginner: "مبتدی",
