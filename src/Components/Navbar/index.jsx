@@ -85,14 +85,14 @@ export default function Navbar() {
               alt="logo"/>
               <div>
                <span className="textLogo hidden sm:inline hover:text-blue-300"> Amoozly</span> 
-               <p className="textLogoBottom text-gray-600 text-[12px]">پل ورود به بازار کار</p>
+               <p className="textLogoBottom text-gray-600 text-[12px] text-nowrap">پل ورود به بازار کار</p>
               </div>
             
           </div>
         </div>
 
         {/* desktop menu */}
-        <ul className="linksNav ml-5 mr-5 hidden md:flex gap-6 text-sm font-medium">
+        <ul className="linksNav mr-4 hidden md:flex gap-6 text-sm font-medium">
           <li>
             <Link to="/" className="hover:text-blue-400">
               خانه
@@ -157,9 +157,9 @@ export default function Navbar() {
           </div>
           {/* login/logout & list */}
           {!token ? (
-            <button className="flex items-center gap-1 w-35 h-10 px-2 bg-blue-500 hover:bg-blue-600 rounded-md">
+            <button onClick={()=>navigate("/login")} className="flex flex-col items-center justify-center w-12 h-12 p-[2px] bg-blue-500 hover:bg-blue-600 rounded-md cursor-pointer">
               <TbLogin size={20} />
-              <Link to="/login">ورود / ثبت نام</Link>
+              <Link className="text-[8px]">ورود / ثبت نام</Link>
             </button>
           ) : (
             <div className="user relative cursor-pointer hover:">
