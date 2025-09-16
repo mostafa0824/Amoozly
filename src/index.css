@@ -13,6 +13,11 @@
 }
 
 /* start media Queries */
+@media screen and (max-width:855px) {
+  .linksNav{
+    gap: 13px;
+   }
+}
 @media screen and (max-width:850px) {
    .imgLogo{
     width: 30px;
