@@ -80,7 +80,7 @@ export default function Navbar() {
             className="text-xl md:text-2xl font-bold text-blue-400 flex items-center gap-2 cursor-pointer"
           >
             <img
-              className="imgLogo w-8 h-8 md:w-10 md:h-10 bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 rounded transition-all duration-400"
+              className="imgLogo w-8 h-8 md:w-10 md:h-10 bg-gradient-to-t from-slate-700 to-slate-500 hover:from-slate-700 hover:to-slate-700 rounded transition-all duration-400"
               src="/images/logo.png"
               alt="logo"/>
               <div>

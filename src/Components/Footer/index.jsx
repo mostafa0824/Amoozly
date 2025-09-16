@@ -12,7 +12,7 @@ export default function Footer() {
         {/* information site */}
         <div>
           <div onClick={()=>navigate('/')} className="text-2xl font-bold text-blue-400 flex items-center gap-3 mb-4 cursor-pointer">
-          <img className="w-10 h-10 bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 rounded transition-all duration-400" src="/images/logo.png" alt="logo" />
+          <img className="imgLogo w-8 h-8 md:w-10 md:h-10 bg-gradient-to-t from-slate-700 to-slate-500 hover:from-slate-700 hover:to-slate-700 rounded transition-all duration-400" src="/images/logo.png" alt="logo" />
           <div>
                 <span className="hidden sm:inline hover:text-blue-300"> Amoozly</span> 
                <p className="text-gray-600 text-[12px]">پل ورود به بازار کار</p>
