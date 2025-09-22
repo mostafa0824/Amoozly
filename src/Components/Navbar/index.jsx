@@ -62,7 +62,7 @@ export default function Navbar() {
   }
  
   return (
-    <nav className="bg-slate-900 text-white shadow-md">
+    <nav className="bg-slate-900 text-white shadow-md fixed left-0 right-0 z-20">
       <div className="max-w-6xl mx-auto px-4 flex justify-between items-center h-16">
         {/* hambegur menu & lego */}
         <div className="flex items-center gap-4">
