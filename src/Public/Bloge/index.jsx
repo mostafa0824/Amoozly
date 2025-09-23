@@ -74,7 +74,7 @@ export default function Bloge() {
   const popularPosts = blogPosts.slice(0, 3);
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-gray-50 py-8 pt-20">
       {/* هدر وبلاگ */}
       <div className="container mx-auto px-4 mb-12">
         <div className="text-center mb-12">

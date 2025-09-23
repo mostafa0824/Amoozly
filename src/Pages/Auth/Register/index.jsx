@@ -51,7 +51,7 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 py-8 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 py-8 px-4 pt-20">
       <div className="max-w-md w-full">
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
           {/* header */}

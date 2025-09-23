@@ -38,7 +38,7 @@ export default function Home() {
   // end courses rating
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 pt-16">
       {/* Hero Section */}
       {/* bac */}
       <div className="relative flex items-center justify-center">

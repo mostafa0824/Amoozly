@@ -46,7 +46,7 @@ export default function CourseDetails() {
 
   if (!courseDetail) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center pt-20">
         <div className="text-center">
           <div className="text-4xl mb-4">😔</div>
           <h2 className="text-2xl font-bold text-gray-800">
@@ -64,7 +64,7 @@ export default function CourseDetails() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-gray-50 py-8 pt-20">
       <div className="container mx-auto px-4 max-w-6xl">
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
           {/* هدر دوره */}

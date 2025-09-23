@@ -25,7 +25,7 @@ export default function NotFound() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center px-4 pt-20">
       <div className="max-w-lg w-full text-center">
         
         <div className="mb-8 flex justify-center">

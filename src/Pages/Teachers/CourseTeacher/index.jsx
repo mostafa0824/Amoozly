@@ -55,7 +55,7 @@ export default function CourseTeacher() {
   }
 
   return (
-    <div className="container mx-auto px-5 sm:px-5 py-6">
+    <div className="container mx-auto px-5 sm:px-5 py-6 pt-20">
       {/* اطلاعات مدرس */}
       <div className="bg-white rounded-lg shadow-md p-6 mb-8">
         <div className="flex items-center gap-4">

@@ -27,7 +27,7 @@ export default function Categories() {
   }
 
   return (
-    <div className='container mx-auto px-5 sm:px-5 py-6'>
+    <div className='container mx-auto px-5 sm:px-5 py-6 pt-20'>
       <h1 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
                 <BiCategory className="ml-2 text-[35px] text-blue-600" />
                  دسته بندی دوره های آموزشی
