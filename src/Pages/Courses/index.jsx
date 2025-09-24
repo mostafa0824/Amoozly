@@ -9,22 +9,12 @@ export default function Course() {
   const [level, setLevel] = useState("");
   const [loading, setLoading] = useState(true);
   const [course, setCourse] = useState([]);
-  
-  useEffect(() => {
-    (async () => {
-      setLoading(true);
-      const response = await fetchData("courses?populate=*");
-      const categoriesRes = await fetchData("categories");
-      setCourse(response.data);
-      setLoading(false);
-    })();
-  }, []);
 
   // filter level
   useEffect(() => {
     (async () => {
       setLoading(true);
-      let query = "courses?populate=*";
+      let query = "courses?populate=*&pagination[pageSize]=100";
       const filters = [];
       if (level) filters.push(`filters[level][$eq]=${level}`);
 
@@ -42,7 +32,7 @@ export default function Course() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center m-50">
+      <div className="flex justify-center items-center pt-40 pb-40">
         <ScaleLoader color="blue" height={100} width={10} />
       </div>
     );
