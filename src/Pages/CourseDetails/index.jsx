@@ -25,20 +25,16 @@ export default function CourseDetails() {
 
   useEffect(() => {
     (async () => {
-      try {
+      setLoading(true)
         const response = await fetchData(`courses/${id}?populate=*`);
         setCourseDetail(response.data);
-      } catch (error) {
-        console.error("Error fetching course details:", error);
-      } finally {
         setLoading(false);
-      }
     })();
   }, [id]);
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center m-50">
+      <div className="flex justify-center items-center pt-40 pb-40">
         <ScaleLoader color="blue" height={100} width={10}/>
       </div>
     );
@@ -54,7 +50,7 @@ export default function CourseDetails() {
           </h2>
           <button
             onClick={() => navigate(-1)}
-            className="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg transition-colors"
+            className="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg transition-colors cursor-pointer"
           >
             بازگشت
           </button>
@@ -81,7 +77,7 @@ export default function CourseDetails() {
                 <img
                   src={`${baseUrl}${courseDetail?.image?.url}`}
                   alt={courseDetail?.title}
-                  className="w-48 h-36 object-cover rounded-xl shadow-lg border-4 border-white/30"
+                  className="w-48 h-36 rounded-xl shadow-lg border-4 border-white/30"
                 />
               </div>
 
