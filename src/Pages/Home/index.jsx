@@ -2,40 +2,36 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import fetchData from "../../Utils/fetchData";
 import SliderHome from "./SliderHome";
+import { ScaleLoader } from "react-spinners";
 
 export default function Home() {
   const [coursesSlider, setCoursesSlider] = useState([]);
   const [categoriesSlider, setCategoriesSlider] = useState([]);
   const [coursesRating, setCoursesRating] = useState([]);
+  const [loading,setLoading]=useState(false)
   const baseUrl = "http://localhost:5000";
   const navigate=useNavigate()
 
-  // start courses
-  useEffect(() => {
-    (async () => {
-      const response = await fetchData("courses?populate=image");
-      setCoursesSlider(response.data);
-    })();
-  }, []);
-  // end courses
+  useEffect(()=>{
+    (async()=>{
+      setLoading(true)
+      const resCourses = await fetchData("courses?populate=image&pagination[pageSize]=100");
+      const resCategories = await fetchData("categories?populate=image");
+      const resRating = await fetchData("courses?populate=image&sort=rating:desc&pagination[limit]=6");
+      setCoursesSlider(resCourses.data);
+      setCategoriesSlider(resCategories.data);
+      setCoursesRating(resRating.data);
+      setLoading(false)
+    })()
+  },[])
 
-  // start categories
-  useEffect(() => {
-    (async () => {
-      const response = await fetchData("categories?populate=image");
-      setCategoriesSlider(response.data);
-    })();
-  }, []);
-  // end categories
-
-  // start courses rating
-  useEffect(() => {
-    (async () => {
-      const response = await fetchData("courses?populate=image&sort=rating:desc&pagination[limit]=6");
-      setCoursesRating(response.data);
-    })();
-  }, []);
-  // end courses rating
+    if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen pt-40 pb-40">
+        <ScaleLoader color="#3B82F6" height={50} width={8} />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 pt-16">
@@ -99,7 +95,7 @@ export default function Home() {
                   <span className="text-gray-600 mr-1">{course?.rating}</span>
                 </div>
                 <button
-                onClick={()=>navigate(`course-Details/${course?.id}/${course?.title}`)}
+                onClick={()=>navigate(`/course-details/${course?.documentId}/${course?.title?.replace(/\//g, " ")?.replace(/\s+/g, "-")}`)}
                  className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300 w-full cursor-pointer">
                   مشاهده دوره
                 </button>
