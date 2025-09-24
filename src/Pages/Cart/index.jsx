@@ -48,7 +48,7 @@ export default function Cart() {
           <img 
             src={`${baseUrl}${item?.image?.url}`} 
             alt={item?.title} 
-            className="w-16 h-16 object-cover rounded-md"
+            className="w-16 h-16 rounded-md"
           />
           <div className='flex flex-col gap-2'>
             <p className="font-medium text-gray-800 line-clamp-1">{item?.title}</p>
