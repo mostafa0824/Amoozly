@@ -22,8 +22,7 @@ export default function FoundCart({ tech, item }) {
     return (
       <div
         onClick={() =>
-          navigate(
-            `/item-details/${item?.documentId}/${item?.title.replaceAll("/", " ", "-")}`
+          navigate(`/course-details/${item?.documentId}/${item?.title?.replace(/\//g, " ")?.replace(/\s+/g, "-")}`
           )
         }
         className="relative group bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer"

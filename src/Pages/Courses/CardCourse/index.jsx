@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addfavorites, removeFavorites } from "../../../store/slices/FavoritesSlice";
 import { addCart, removeCart } from "../../../store/slices/CartSlice";
-import fetchData from "../../../Utils/fetchData";
 
 export default function CardCourse({ course }) {
   const cartItems = useSelector((state) => state.cart.items);
@@ -27,11 +26,7 @@ export default function CardCourse({ course }) {
     <div
       onClick={() =>
         navigate(
-          `/course-details/${course?.documentId}/${course?.title.replaceAll(
-            "/",
-            " ",
-            "-"
-          )}`
+          `/course-details/${course?.documentId}/${course?.title.replaceAll("/"," ","-")}`
         )
       }
       className="relative group bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer"
