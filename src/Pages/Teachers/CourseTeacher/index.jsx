@@ -35,7 +35,7 @@ export default function CourseTeacher() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
+      <div className="flex justify-center items-center min-h-screen pt-40 pb-40">
         <ScaleLoader color="#3B82F6" height={50} width={8} />
       </div>
     );
@@ -99,10 +99,7 @@ export default function CourseTeacher() {
               <div
                 onClick={() =>
                   navigate(
-                    `/course-details/${course?.documentId}/${course?.title
-                      ?.replace(/\//g, " ")
-                      ?.replace(/\s+/g, "-")}`
-                  )
+                    `/course-details/${course?.documentId}/${course?.title?.replace(/\//g, " ")?.replace(/\s+/g, "-")}`)
                 }
                 className="flex-grow"
               >

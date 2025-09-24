@@ -56,7 +56,7 @@ export default function CategoryDetails() {
   // loading
   if (loading) {
     return (
-      <div className="flex justify-center items-center m-50">
+      <div className="flex justify-center items-center pt-40 pb-40">
         <ScaleLoader color="blue" height={100} width={10} />
       </div>
     );
@@ -70,7 +70,7 @@ export default function CategoryDetails() {
             <img
               src={`${baseUrl}${categoryDetails?.image?.url}`}
               alt={categoryDetails?.name}
-              className="w-32 h-32 md:w-40 md:h-40 rounded-full shadow-lg object-cover border-4 border-white"
+              className="w-32 h-32 md:w-40 md:h-40 rounded-full shadow-lg border-4 border-white"
             />
           )}
           <div>
@@ -169,7 +169,7 @@ export default function CategoryDetails() {
                     <img
                       src={`${baseUrl}${course?.image?.url}`}
                       alt={course?.title}
-                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-48 group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
                 )}

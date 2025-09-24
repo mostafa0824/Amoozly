@@ -18,7 +18,7 @@ export default function NotFound() {
 
     if (loading) {
     return (
-      <div className="flex justify-center items-center m-50">
+      <div className="flex justify-center items-center pt-40 pb-40">
         <ScaleLoader color="blue" height={100} width={10} />
       </div>
     );
