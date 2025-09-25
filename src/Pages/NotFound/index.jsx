@@ -27,12 +27,6 @@ export default function NotFound() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center px-4 pt-20">
       <div className="max-w-lg w-full text-center">
-        
-        <div className="mb-8 flex justify-center">
-          <div className="bg-yellow-100 p-6 rounded-full">
-            <FaExclamationTriangle className="text-5xl text-yellow-500" />
-          </div>
-        </div>
 
         <h1 className="text-9xl font-bold text-gray-800 mb-4">404</h1>
         <h2 className="text-2xl font-semibold text-gray-700 mb-4">صفحه مورد نظر یافت نشد</h2>
@@ -97,7 +91,15 @@ export default function NotFound() {
             تماس با ما
           </button>
         </div>
+        <div className='flex items-center justify-center gap-1 mt-4'>
+          <img
+              className="imgLogo w-8 h-8 md:w-10 md:h-10 transition-all duration-400"
+              src="/images/logo.png"
+              alt="logo"/>
+              <p>Amoozly</p>
+        </div>
       </div>
+      
     </div>
   );
 }
