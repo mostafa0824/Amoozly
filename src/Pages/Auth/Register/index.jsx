@@ -10,6 +10,18 @@ import { useNavigate } from "react-router-dom";
 import Home from "../../Home";
 
 export default function Register() {
+
+  // error message
+  const translateError=(error)=>{
+    const translate={
+    "Invalid identifier or password": "نام کاربری یا رمز عبور اشتباه است",
+    "Your account has been blocked by an administrator": "حساب شما توسط مدیر مسدود شده است",
+    "Too many attempts": "تعداد تلاش‌های شما بیش از حد مجاز است",
+    "Email or Password are invalid": "ایمیل یا رمز عبور معتبر نیست",
+    "Email or Username are already taken":"کاربر با این نام کاربری یا ایمیل وجود دارد"
+    }
+    return translate[error] || "خطای نامشخص"
+  }
   const [showPassword,setShowPassword]=useState(false)
   const {user}=useSelector(state=>state.auth)
   const navigate=useNavigate()
@@ -39,10 +51,12 @@ export default function Register() {
       });
 
       if (res?.user) {
-        setStatus({ success: "ثبت‌نام با موفقیت انجام شد!" });
+        setStatus({ success: "ثبت‌ نام با موفقیت انجام شد!" });
         setTimeout(() => (window.location.href = "/login"), 1000);
       } else {
-        setStatus({ error: res?.error?.message || "کاربر با این ایمیل/نام کاربری وجود دارد" });
+        const orginalMessage=res?.error?.message || "کاربر با این ایمیل/نام کاربری وجود دارد"
+        const persianMessage=translateError(orginalMessage)
+        setStatus({ error: persianMessage });
       }
     } catch {
       setStatus({ error: "خطا در ارتباط با سرور. لطفا مجددا تلاش کنید" });

@@ -9,6 +9,19 @@ import fetchData from "../../../Utils/fetchData";
 import { FaUser, FaLock, FaSignInAlt, FaUserPlus, FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function Login() {
+
+  // error message
+  const translateError = (error) => {
+  const translations = {
+    
+    "Invalid identifier or password": "نام کاربری یا رمز عبور اشتباه است",
+    "Your account has been blocked by an administrator": "حساب شما توسط مدیر مسدود شده است",
+    "Too many attempts": "تعداد تلاش‌های شما بیش از حد مجاز است",
+    "Email or Password are invalid": "ایمیل یا رمز عبور معتبر نیست",
+    "User not found": "کاربر یافت نشد",
+  };
+  return translations[error] || "خطای نامشخص رخ داده است";
+};
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
@@ -41,7 +54,9 @@ export default function Login() {
         setStatus({ success: "ورود موفقیت‌آمیز بود!" });
         setTimeout(() => navigate("/"), 1000);
       } else {
-        setStatus({ error: data.error?.message || "ورود ناموفق بود" });
+        const orginalMessage= data.error?.message || "ورود ناموفق بود"
+        const persianMessage=translateError(orginalMessage)
+        setStatus({error:persianMessage});
       }
     } catch (err) {
       setStatus({ error: "خطا در ارتباط با سرور" });
