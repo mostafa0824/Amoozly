@@ -136,7 +136,7 @@ export default function CategoryDetails() {
             onClick={() => setLevel("")}
             className="text-blue-600 hover:text-blue-800 font-medium mt-2 cursor-pointer"
           >
-            مشاهده همه دوره‌ها
+       مشاهده همه دوره‌های {categoryDetails?.name}
           </button>
         </div>
       ) : (
